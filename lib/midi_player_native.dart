@@ -24,6 +24,7 @@ class MidiPlayerNative extends MidiPlayer {
   }
 
   void play(int midi) {
+    logger.fine('play midi $midi');
     _flutterMidi.playMidiNote(midi: midi);
   }
 }
