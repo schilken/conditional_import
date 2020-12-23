@@ -15,8 +15,6 @@ class MidiPlayerWeb extends MidiPlayer {
     logger.fine('play midi $midi');
     String _note = tonic.Pitch.fromMidiNumber(midi).toString();
     _note = _note.replaceAll('♭', 'b').replaceAll('♯', '#');
-    // print('Midi -> $midi/$_note');
     js.context.callMethod("playNote", ["$_note", "8n"]);
-    // html.window.document.getElementById('midiPlay$midi').click();
   }
 }
