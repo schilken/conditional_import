@@ -8,6 +8,8 @@ abstract class MidiPlayer {
   Future<void> init();
 
   void play(int midi);
+
+  void playNote(String note);
 }
 
 final midiProvider = Provider<MidiPlayer>((ref) {

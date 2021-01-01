@@ -13,8 +13,14 @@ class MidiPlayerWeb extends MidiPlayer {
 
   void play(int midi) {
     logger.fine('play midi $midi');
-    String _note = tonic.Pitch.fromMidiNumber(midi).toString();
-    _note = _note.replaceAll('♭', 'b').replaceAll('♯', '#');
-    js.context.callMethod("playNote", ["$_note", "8n"]);
+    String note = tonic.Pitch.fromMidiNumber(midi).toString();
+    playNote(note);
+  }
+
+  @override
+  void playNote(String note) {
+    logger.fine('playNote $note');
+    final fullNote = note.replaceAll('♭', 'b').replaceAll('♯', '#');
+    js.context.callMethod("playNote", ["$fullNote", "8n"]);
   }
 }

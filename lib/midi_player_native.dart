@@ -1,5 +1,6 @@
 import 'package:flutter/services.dart';
 import 'package:flutter_midi/flutter_midi.dart';
+import 'package:tonic/tonic.dart' as tonic;
 import 'package:logging/logging.dart';
 import 'midi_player_provider.dart';
 
@@ -19,12 +20,18 @@ class MidiPlayerNative extends MidiPlayer {
   Future<void> load(String asset) async {
     logger.fine("Loading File... $asset");
     _flutterMidi.unmute();
-    ByteData _bytes = await rootBundle.load(asset);
-    _flutterMidi.prepare(sf2: _bytes, name: asset.replaceAll("assets/", ""));
+    ByteData bytes = await rootBundle.load(asset);
+    _flutterMidi.prepare(sf2: bytes, name: asset.replaceAll("assets/", ""));
   }
 
   void play(int midi) {
     logger.fine('play midi $midi');
     _flutterMidi.playMidiNote(midi: midi);
+  }
+
+  void playNote(String note) {
+    logger.fine('playNote $note');
+    final midi = tonic.name2midi(note);
+    play(midi);
   }
 }
